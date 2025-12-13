@@ -1,0 +1,17 @@
+package ReleaseBack.Back.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import ReleaseBack.Back.entity.User;
+import ReleaseBack.Back.entity.Profile;
+
+@Mapper
+public interface UserMapper {
+    User findByUsername(@Param("username") String username);
+
+    User findByEmail(@Param("email") String email);
+
+    void saveUser(User user);
+
+    void createProfile(Profile profile);
+}
