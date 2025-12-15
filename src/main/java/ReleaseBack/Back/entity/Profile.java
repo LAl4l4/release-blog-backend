@@ -19,8 +19,6 @@ public class Profile {
     @JoinColumn(name = "user_id")  // 外键列，同时也是主键
     private User user;
 
-    
-
     @Column(name = "bio", columnDefinition = "TEXT")
     private String bio;
     

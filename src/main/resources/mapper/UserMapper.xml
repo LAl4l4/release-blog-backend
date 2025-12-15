@@ -24,8 +24,30 @@
     </insert>
 
     <insert id="createProfile" parameterType="ReleaseBack.Back.entity.Profile">
-        
+        INSERT INTO profiles (
+            user_id,
+            bio,
+            avatar_url,
+            birthday,
+            gender
+        )
+        VALUES (
+            #{id},
+            #{bio},
+            #{avatarUrl},
+            #{birthday},
+            #{gender}
+        )
     </insert>
+
+    <!-- findProfileById --> 
+
+    <select id="findProfileById" resultType="ReleaseBack.Back.entity.Profile" parameterType="int">
+        SELECT user_id, bio, avatar_url, birthday, gender
+        FROM profiles
+        WHERE user_id = #{userid}
+    </select>
+
 </mapper>
 
 

@@ -7,6 +7,8 @@ import ReleaseBack.Back.entity.User;
 import ReleaseBack.Back.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import ReleaseBack.Back.entity.Profile;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -69,9 +71,17 @@ public class AuthController {
 
     @PostMapping("/getbio")
     public String getBio(@RequestParam Integer userid) {
-        //TODO: process POST request
+        
         
         return "This";
     }
+
+    @PostMapping("/setbio")
+    public String setBio(@RequestBody Integer userid, String bio) {
+        
+        
+        return "entity";
+    }
+    
     
 }

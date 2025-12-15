@@ -14,4 +14,6 @@ public interface UserMapper {
     void saveUser(User user);
 
     void createProfile(Profile profile);
+
+    Profile findProfileById(@Param("userid") Integer userid);
 }
