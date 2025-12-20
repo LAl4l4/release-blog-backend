@@ -16,4 +16,6 @@ public interface UserMapper {
     void createProfile(Profile profile);
 
     Profile findProfileById(@Param("userid") Integer userid);
+
+    void updateProfileBio(@Param("userid") Integer userid, @Param("bio") String bio);
 }

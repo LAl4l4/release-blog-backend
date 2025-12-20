@@ -30,8 +30,16 @@ public class UserService {
         userMapper.createProfile(profile);
     }
 
+    public Profile findProfileById(Integer userid) {
+        return userMapper.findProfileById(userid);
+    }
+
     public String findBioById(Integer userid) {
         return userMapper.findProfileById(userid).getBio();
+    }
+
+    public void updateBio(Integer userid, String bio) {
+        userMapper.updateProfileBio(userid, bio);
     }
 
 }

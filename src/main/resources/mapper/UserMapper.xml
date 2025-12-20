@@ -48,6 +48,13 @@
         WHERE user_id = #{userid}
     </select>
 
+    <!-- updateProfileBio --> 
+
+    <update id="updateProfileBio">
+        UPDATE profiles
+        SET bio = #{bio}
+        WHERE user_id = #{userid}
+    </update>
 </mapper>
 
 

@@ -8,9 +8,7 @@ import ReleaseBack.Back.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import ReleaseBack.Back.entity.Profile;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
-
+import ReleaseBack.Back.VO.*;
 
 
 @RestController
@@ -24,15 +22,21 @@ public class AuthController {
     //测试账号 admin@admin.com/admin1/admin1
 
     @PostMapping("/login")
-    public String login(
+    public loginVO login(
         @RequestParam String username, //可能是email或username
         @RequestParam String pass
     ) {
         User foundUser = userService.findByNameEmail(username);
         if (foundUser != null && foundUser.getPassword().equals(pass)) {
-            return "登录成功";
+            loginVO loginVO = new loginVO();
+            loginVO.setResult("登录成功");
+            loginVO.setUserid(foundUser.getId());
+            return loginVO;
         }
-        return "用户名/邮箱或密码错误";
+        loginVO loginVO = new loginVO();
+        loginVO.setResult("用户名/邮箱或密码错误");
+        loginVO.setUserid(null);
+        return loginVO;
     }
 
 
@@ -71,17 +75,28 @@ public class AuthController {
 
     @PostMapping("/getbio")
     public String getBio(@RequestParam Integer userid) {
-        
-        
-        return "This";
+        return userService.findBioById(userid);
     }
 
     @PostMapping("/setbio")
     public String setBio(@RequestBody Integer userid, String bio) {
-        
-        
-        return "entity";
+        userService.updateBio(userid, bio);
+        return "修改成功";
     }
     
+    @PostMapping("/pullProfiles")
+    public ProfileVO pullProfiles(@RequestBody Integer userid) {
+        Profile profile = userService.findProfileById(userid);
+        if (profile == null) {
+            return null;
+        }
+        ProfileVO profileVO = new ProfileVO();
+        profileVO.setId(profile.getId());
+        profileVO.setBio(profile.getBio());
+        profileVO.setAvatarUrl(profile.getAvatarUrl());
+        profileVO.setBirthday(profile.getBirthday());
+        profileVO.setGender(profile.getGender());
+        return profileVO;
+    }
     
 }
