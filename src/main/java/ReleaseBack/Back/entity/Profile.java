@@ -10,26 +10,21 @@ import java.time.LocalDate;
 @Table(name = "profiles")
 public class Profile {
 
-    @Id
-    @Column(name = "user_id")
+    //mybatis会直接无视@Column等注解，那是JPA的，需要在xml里面自己配置映射
     private Integer id;
 
     @OneToOne
+    //mapsid必须从数据库中取id，所以要先把user保存进去才行
     @MapsId
     @JoinColumn(name = "user_id")  // 外键列，同时也是主键
     private User user;
 
-    @Column(name = "bio", columnDefinition = "TEXT")
     private String bio;
     
-    @Column(name = "avatar_url", length = 255)
     private String avatarUrl;
 
-    @Column(name = "birthday")
     private LocalDate birthday;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender", length = 20)
     private Gender gender;
 
     public enum Gender {

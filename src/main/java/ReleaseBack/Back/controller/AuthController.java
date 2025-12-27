@@ -64,6 +64,7 @@ public class AuthController {
         newProfile.setBirthday(null);
         newProfile.setGender(Profile.Gender.undisclosed);
 
+        //mybatis不能使用这个
         newUser.setProfile(newProfile);
 
         userService.saveUser(newUser);
@@ -85,8 +86,9 @@ public class AuthController {
     }
     
     @PostMapping("/pullProfiles")
-    public ProfileVO pullProfiles(@RequestBody Integer userid) {
-        Profile profile = userService.findProfileById(userid);
+    public ProfileVO pullProfiles(@RequestParam String userid) {
+        Integer id = Integer.valueOf(userid);
+        Profile profile = userService.findProfileById(id);
         if (profile == null) {
             return null;
         }
@@ -98,5 +100,4 @@ public class AuthController {
         profileVO.setGender(profile.getGender());
         return profileVO;
     }
-    
 }

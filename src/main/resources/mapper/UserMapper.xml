@@ -6,6 +6,14 @@
 
 <mapper namespace="ReleaseBack.Back.mapper.UserMapper">
 
+    <resultMap id="ProfileMap" type="ReleaseBack.Back.entity.Profile">
+        <id property="id" column="user_id"/>
+        <result property="bio" column="bio"/>
+        <result property="avatarUrl" column="avatar_url"/>
+        <result property="birthday" column="birthday"/>
+        <result property="gender" column="gender"/>
+    </resultMap>
+
     <select id="findByUsername" resultType="ReleaseBack.Back.entity.User">
         SELECT id, username, password, email
         FROM user
@@ -42,7 +50,9 @@
 
     <!-- findProfileById --> 
 
-    <select id="findProfileById" resultType="ReleaseBack.Back.entity.Profile" parameterType="int">
+    <select id="findProfileById" 
+        resultMap="ProfileMap"
+        parameterType="int">
         SELECT user_id, bio, avatar_url, birthday, gender
         FROM profiles
         WHERE user_id = #{userid}

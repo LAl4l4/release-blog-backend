@@ -1,6 +1,5 @@
 package ReleaseBack.Back.entity;
 
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -10,7 +9,7 @@ public class User {
     private String password;
     private String email;
 
-    @OneToOne(mappedBy = "user")
+    //mybatis会直接无视@Column等注解，那是JPA的，需要在xml里面自己配置映射
     private Profile profile;
 
     // getter & setter
