@@ -2,6 +2,7 @@ package ReleaseBack.Back.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ReleaseBack.Back.mapper.UserMapper;
 import ReleaseBack.Back.entity.User;
@@ -19,6 +20,30 @@ public class UserService {
         }else{
             return userMapper.findByUsername(username);
         }
+    }
+
+    @Transactional
+    public void createUserWithProfile(
+        String username,
+        String password,
+        String email
+    ) {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setEmail(email);
+
+        userMapper.saveUser(newUser);
+
+        // 2️⃣ 创建 profile，并手动同步 id
+        Profile newProfile = new Profile();
+        newProfile.setId(newUser.getId()); // ⭐ 这一步 = @MapsId
+        newProfile.setBio("This user is too lazy to leave anything here.");
+        newProfile.setAvatarUrl(null);
+        newProfile.setBirthday(null);
+        newProfile.setGender(Profile.Gender.undisclosed);
+
+        userMapper.createProfile(newProfile);
     }
 
 

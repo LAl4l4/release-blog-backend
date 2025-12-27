@@ -52,29 +52,16 @@ public class AuthController {
             return "用户名已存在";
         }
 
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(pass);
-        newUser.setEmail(email);
+        try {
+            userService.createUserWithProfile(username, pass, email);
+        } catch (Exception e) {
+            return "服务器发生异常";
+        }
         
-        Profile newProfile = new Profile();
-        newProfile.setUser(newUser);
-        newProfile.setBio("This user is too lazy to leave anything here.");
-        newProfile.setAvatarUrl(null);
-        newProfile.setBirthday(null);
-        newProfile.setGender(Profile.Gender.undisclosed);
-
-        //mybatis不能使用这个
-        newUser.setProfile(newProfile);
-
-        userService.saveUser(newUser);
-
-        userService.createProfile(newProfile);
-
         return "注册成功";
     }
 
-    @PostMapping("/getbio")
+    @GetMapping("/getbio")
     public String getBio(@RequestParam Integer userid) {
         return userService.findBioById(userid);
     }
@@ -85,10 +72,9 @@ public class AuthController {
         return "修改成功";
     }
     
-    @PostMapping("/pullProfiles")
-    public ProfileVO pullProfiles(@RequestParam String userid) {
-        Integer id = Integer.valueOf(userid);
-        Profile profile = userService.findProfileById(id);
+    @GetMapping("/pullProfiles")
+    public ProfileVO pullProfiles(@RequestParam Integer userid) {
+        Profile profile = userService.findProfileById(userid);
         if (profile == null) {
             return null;
         }

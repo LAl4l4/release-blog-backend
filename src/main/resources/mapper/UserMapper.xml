@@ -26,7 +26,11 @@
         WHERE email = #{email}
     </select>
 
-    <insert id="saveUser" parameterType="ReleaseBack.Back.entity.User">
+    <insert id="saveUser" 
+        parameterType="ReleaseBack.Back.entity.User"
+        useGeneratedKeys="true" 
+        keyProperty="id"
+        >
         INSERT INTO user (username, password, email)
         VALUES (#{username}, #{password}, #{email})
     </insert>
