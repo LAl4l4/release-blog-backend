@@ -4,13 +4,12 @@ import lombok.Data;
 
 @Data
 public class User {
+
+    //mybatis会直接无视@Column等注解，那是JPA的，需要在xml里面自己配置映射
     private Integer id;
     private String username;
     private String password;
     private String email;
-
-    //mybatis会直接无视@Column等注解，那是JPA的，需要在xml里面自己配置映射
-    private Profile profile;
 
     // getter & setter
     public Integer getId() { return id; }

@@ -2,12 +2,12 @@ package ReleaseBack.Back.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ReleaseBack.Back.entity.User;
 import ReleaseBack.Back.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import ReleaseBack.Back.entity.Profile;
-import org.springframework.web.bind.annotation.RequestBody;
 import ReleaseBack.Back.VO.*;
 
 
@@ -41,6 +41,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
+    @Transactional
     public String register(
         @RequestParam String username, 
         @RequestParam String pass,
@@ -61,16 +62,7 @@ public class AuthController {
         return "注册成功";
     }
 
-    @GetMapping("/getbio")
-    public String getBio(@RequestParam Integer userid) {
-        return userService.findBioById(userid);
-    }
-
-    @PostMapping("/setbio")
-    public String setBio(@RequestBody Integer userid, String bio) {
-        userService.updateBio(userid, bio);
-        return "修改成功";
-    }
+    
     
     @GetMapping("/pullProfiles")
     public ProfileVO pullProfiles(@RequestParam Integer userid) {
@@ -85,5 +77,14 @@ public class AuthController {
         profileVO.setBirthday(profile.getBirthday());
         profileVO.setGender(profile.getGender());
         return profileVO;
+    }
+
+    @PostMapping("/pushProfile")
+    public String pushProfile(@RequestBody ProfileVO profileVO) {
+        try {
+        } catch (Exception e) {
+            return "服务器发生异常";
+        }
+        return "保存成功";
     }
 }
