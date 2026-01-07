@@ -21,4 +21,12 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
     }
+
+    public Integer parseId(String token) {
+        return (Integer) Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(token)
+                .getBody()
+                .get("userId");
+    }
 }

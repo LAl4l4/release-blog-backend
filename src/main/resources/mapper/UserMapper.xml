@@ -31,6 +31,7 @@
         useGeneratedKeys="true" 
         keyProperty="id"
         >
+        <!-- 这里把生成的id重新注入回对象 --> 
         INSERT INTO user (username, password, email)
         VALUES (#{username}, #{password}, #{email})
     </insert>

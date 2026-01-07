@@ -8,6 +8,7 @@ import ReleaseBack.Back.entity.User;
 import ReleaseBack.Back.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import ReleaseBack.Back.entity.Profile;
+import ReleaseBack.Back.DTO.ProfileDTO;
 import ReleaseBack.Back.VO.*;
 
 
@@ -80,8 +81,11 @@ public class AuthController {
     }
 
     @PostMapping("/pushProfile")
-    public String pushProfile(@RequestBody ProfileVO profileVO) {
+    public String pushProfile(@RequestBody ProfileDTO profileDTO) {
         try {
+            if (profileDTO.getId()==null) {
+                return "Invalid DTO";
+            }
         } catch (Exception e) {
             return "服务器发生异常";
         }
